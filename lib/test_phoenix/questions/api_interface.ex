@@ -5,10 +5,11 @@ defmodule TestPhoenix.ApiInterface do
 
     @api "http://jservice.io/api"
     def get_random() do
-        clues = HTTPoison.get(@api+"/random/?count=1")
+        clues = HTTPoison.get(@api<>"/random/?count=1")
         case clues do
             {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-                body
+                Poison.decode!(body)
+                |> List.first    
             {:ok, %HTTPoison.Response{status_code: 404}} ->
                 IO.puts "Not found :("
             {:error, %HTTPoison.Error{reason: reason}} ->
