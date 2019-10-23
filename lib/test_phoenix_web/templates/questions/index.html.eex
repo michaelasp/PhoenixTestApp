@@ -1,4 +1,25 @@
-<h1>Question</h1>
-<p><%= @question["question"]%></p>
-<h1>Answer </h1>
-<p><%= @question["answer"]%> </p>
+<%= form_for @conn, Routes.questions_path(@conn, :index), [method: :post], fn f -> %>
+  Difficulty:<br>
+  <%= select f, :value, [200, 400, 600, 800, 1000], prompt: "All" %><br>
+  Min:
+  <%= date_input f, :min%>
+  Max:
+  <%= date_input f, :max%><br>
+  
+  <%= submit "Search" %>
+<% end %>
+<%= form_for @conn, Routes.questions_path(@conn, :category), [method: :get], fn f -> %>
+  Category:
+  <%= text_input f, :cat %>
+  <%= submit "Search for Category" %>
+<% end %>
+<table>
+<tbody>
+<%=for clue <- @question_list do %>
+<tr>
+    <td><%= raw(clue["question"])%></td>
+    <td><%= raw(clue["answer"])%></td>
+</tr>
+<% end %>
+</tbody>
+</table>

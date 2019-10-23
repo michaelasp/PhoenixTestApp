@@ -1,0 +1,15 @@
+<%= form_for @conn, Routes.questions_path(@conn, :category), [method: :get], fn f -> %>
+  Category:
+  <%= text_input f, :category %>
+  <%= submit "Search for Category" %>
+<% end %>
+<table>
+<tbody>
+<%= for {cat_num, cat_name} <- @category_list do %>
+    <tr>
+    
+    <td><%= link(cat_name, to: "/questions?"<>URI.encode_query("category": cat_num), method: :post) %></td>
+    </tr>
+<% end%>
+</tbody>
+</table>

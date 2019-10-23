@@ -17,6 +17,7 @@ config :test_phoenix, TestPhoenixWeb.Endpoint,
   render_errors: [view: TestPhoenixWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TestPhoenix.PubSub, adapter: Phoenix.PubSub.PG2]
 
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

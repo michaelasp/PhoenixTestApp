@@ -17,7 +17,9 @@ defmodule TestPhoenixWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/questions", QuestionsController, only: [:index, :show]
+    get "/questions", QuestionsController, :index
+    post "/questions", QuestionsController, :index
+    get "/questions/category", QuestionsController, :category
   end
 
   # Other scopes may use custom stacks.
