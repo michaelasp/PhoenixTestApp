@@ -1,30 +1,47 @@
-
-<%= form_for @conn, get_route(@conn, @cat_route), [method: :post], fn f -> %>
-  Difficulty:<br>
-  <%= select f, :value, [200, 400, 600, 800, 1000], prompt: "All" %><br>
-  Min:
-  <%= date_input f, :min%>
-  Max:
-  <%= date_input f, :max%><br>
-  
-  <%= submit "Search" %>
-<% end %>
 <%= form_for @conn, Routes.questions_path(@conn, :category), [method: :get], fn f -> %>
   Category:
   <%= text_input f, :cat %>
   <%= submit "Search for Category" %>
 <% end %>
+
+<%= form_for @conn, get_route(@conn, @cat_route), [method: :post], fn f -> %>
+  <table>
+  <tbody>
+  <tr>
+  <td>Difficulty:</td>
+  <td>Broadcast After:</td>
+  <td>Broadcast Before:</td>
+  </tr>
+  <tr>
+  <td>
+  <%= select f, :value, [100,200,300, 400,500, 600,700, 800,900, 1000], prompt: "All" %>
+  </td>
+  <td>
+  <%= date_input f, :min%>
+  </td>
+  <td>
+  <%= date_input f, :max%><br>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  
+  <%= submit "Search" %>
+<% end %>
+
 <table>
 <thead>
 <th> Question </th>
 <th> Answer </th>
 <th> Points </th>
+<th> Air Date </th>
 <tbody>
 <%=for clue <- @question_list do %>
 <tr>
     <td><%= raw(clue["question"])%></td>
     <td><%= raw(clue["answer"])%></td>
     <td><%= clue["value"]%></td>
+    <td><%= readable_date(clue["airdate"])%></td>
 </tr>
 <% end %>
 </tbody>

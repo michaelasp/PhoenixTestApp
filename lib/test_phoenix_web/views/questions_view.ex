@@ -7,5 +7,9 @@ defmodule TestPhoenixWeb.QuestionsView do
             Routes.questions_path(conn, :index)
         end
     end
+    def readable_date(date) do
+        {:ok, parsed, _} = DateTime.from_iso8601(date)
+        Integer.to_string(parsed.month) <> "/" <> Integer.to_string(parsed.day) <> "/" <> Integer.to_string(parsed.year)
+    end
 end
   
