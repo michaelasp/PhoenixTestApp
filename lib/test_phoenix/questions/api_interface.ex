@@ -21,9 +21,9 @@ defmodule TestPhoenix.ApiInterface do
         cat = get_in(params, ["category"])
         min = get_in(params, ["min"])
         max = get_in(params, ["max"])
-        min_date = if min != nil do min <> "T00:00:00Z" else "" end
-        max_date = if max != nil do max <> "T00:00:00Z" else "" end
-        IO.puts(min_date)
+        min_date = if min != nil and min != "" do min <> "T00:00:00Z" else "" end
+        max_date = if max != nil and max != "" do max <> "T00:00:00Z" else "" end
+        IO.puts(@api<>"api/clues/?value=#{value}&category=#{cat}&min_date=#{min_date}&max_date=#{max_date}")
         clues = HTTPoison.get(@api<>"api/clues/?value=#{value}&category=#{cat}&min_date=#{min_date}&max_date=#{max_date}")
         case clues do
             {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -40,7 +40,7 @@ defmodule TestPhoenix.ApiInterface do
         end
     end
     def get_cat(params) do
-        category = get_in(params, ["category"])
+        category = get_in(params, ["cat"])
         raw = HTTPoison.get(@api<>"search?query=#{category}")
         case raw do
             {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->

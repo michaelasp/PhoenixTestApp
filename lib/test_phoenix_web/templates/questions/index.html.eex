@@ -1,4 +1,5 @@
-<%= form_for @conn, Routes.questions_path(@conn, :index), [method: :post], fn f -> %>
+
+<%= form_for @conn, get_route(@conn, @cat_route), [method: :post], fn f -> %>
   Difficulty:<br>
   <%= select f, :value, [200, 400, 600, 800, 1000], prompt: "All" %><br>
   Min:
@@ -14,11 +15,16 @@
   <%= submit "Search for Category" %>
 <% end %>
 <table>
+<thead>
+<th> Question </th>
+<th> Answer </th>
+<th> Points </th>
 <tbody>
 <%=for clue <- @question_list do %>
 <tr>
     <td><%= raw(clue["question"])%></td>
     <td><%= raw(clue["answer"])%></td>
+    <td><%= clue["value"]%></td>
 </tr>
 <% end %>
 </tbody>

@@ -16,9 +16,9 @@ defmodule TestPhoenixWeb.Router do
   scope "/", TestPhoenixWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    get "/questions", QuestionsController, :index
-    post "/questions", QuestionsController, :index
+    
+    get "/", QuestionsController, :index
+    post "/", QuestionsController, :index
     get "/questions/category", QuestionsController, :category
   end
 

@@ -4,7 +4,10 @@ defmodule TestPhoenixWeb.QuestionsController do
     def index(conn, params) do
         random_q = ApiInterface.get_random
         questions = ApiInterface.get_questions(params)
-        render(conn, "index.html", question: random_q, question_list: questions)
+        cat_route = get_in(params, ["category"])
+        if cat_route == nil do cat_route = "" end
+        IO.puts(cat_route)
+        render(conn, "index.html", question: random_q, question_list: questions, cat_route: cat_route)
       end
     def category(conn, params) do
       category_list = ApiInterface.get_cat(params)
